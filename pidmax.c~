@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
+/**
+ * nain - pid_max
+ *
+ * Return: zero for successful execution
+ */
+
+int main(void)
+{
+	int fd, count;
+	ssize_t rd;
+	char *buf;
+
+	fd = open("/proc/sys/kernel/pid_max", O_RDONLY);
+	if (fd < 0)
+		exit(-1);
+	buf = malloc(count * sizeof(buf));
+	rd = read(fd, buf, count);
+	if (rd < 0)
+		exit(-1);
+
+	printf("%s\n", buf);
+	return (0);
+}
