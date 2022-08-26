@@ -15,21 +15,24 @@
 int main(void)
 {
 	ssize_t gd;
-	size_t *restrict n;
+	size_t *restrict n, m;
 	char **restrict buf;
 	FILE *restrict stream;
 
-	stream = STDIN_FILENO;
-	printf("Stream assigned\n");
-	*n = MAXCHARS;
-	printf("n assigned\n");
-	buf = malloc(*n * sizeof(buf));
-	printf("Space for buffer allocated");
-	printf("$ ");
-	gd = getline(buf, n, stream);
-	if (gd < 0)
-		exit(-1);
-	printf("%s\n", *buf);
+	stream = stdin;
+/*	printf("Stream assigned\n");*/
+	m = MAXCHARS;
+	n = &m;
+/*	printf("n assigned\n");*/
+	buf = malloc(*n);
+/*	printf("Space for buffer allocated\n");*/
+	gd = 0;
+	while (gd != -1)
+	{
+		printf("$ ");
+		gd = getline(buf, n, stream);
+		printf("%s\n", *buf);
+	}
 	free(buf);
 	return (0);
 }
