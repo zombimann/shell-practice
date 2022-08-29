@@ -1,0 +1,4 @@
+#ifndef MYGETLINE
+#define MYGETLINE
+ssize_t mygetline(char **restrict buf, size_t *restrict n, FILE *restrict stream);
+#endif
