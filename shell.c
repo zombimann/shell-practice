@@ -14,17 +14,18 @@
 
 int main(void)
 {
-	ssize_t nread;
-	char *lineptr, *token, *delim, *argv[2];
-	char *envp[] = {NULL};
-	size_t *n, m;
-	pid_t childpid;
-	int wstatus;
-
-	/*FILE *stream;*/
-
-	while(1)
+	while (1)
 	{
+		ssize_t nread;
+		char *lineptr, *token, *delim, *argv[2];
+		char *envp[] = {NULL};
+
+		size_t *n, m;
+		pid_t childpid;
+
+		int wstatus, exe_status;
+
+		/*FILE *stream;*/
 		printf("Zombi$ ");
 		lineptr = malloc(*n);
 		/**stream = stdin;*/
@@ -54,14 +55,16 @@ int main(void)
 		}
 		if (childpid != 0)
 		{
-			puts("Gets here");
-			execve(token, argv, envp);
+			exe_status = execve(argv[0], argv, envp);
+			printf("execve status: %d\n", exe_status);
+			/*_exit(EXIT_SUCCESS);*/
 			sleep(.1);
 		}
 		else
 			wait(&wstatus);
-		
+		free(lineptr);
+
 	}
-	free(lineptr);
+
 	return (0);
 }
